@@ -795,6 +795,10 @@ void MqttPublishPrefixTopicRulesProcess_P(uint32_t prefix, const char* subtopic)
   MqttPublishPrefixTopicRulesProcess_P(prefix, subtopic, false);
 }
 
+void MqttPublishTeleSensorTopic(const char *topic) {
+  MqttPublishPrefixTopicRulesProcess_P(TELE, topic, Settings->flag.mqtt_sensor_retain);  // CMND_SENSORRETAIN
+}
+
 void MqttPublishTeleSensor(void) {
   // Publish tele/<device>/SENSOR default ResponseData string with optional retained
   //   then process rules

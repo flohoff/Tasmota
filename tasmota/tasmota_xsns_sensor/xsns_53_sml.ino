@@ -2330,6 +2330,8 @@ nextsect:
   }
 }
 
+#define D_RSLT_ISENSOR "ISENSOR"
+
 //"1-0:1.8.0*255(@1," D_TPWRIN ",kWh," DJ_TPWRIN ",4|"
 void SML_Immediate_MQTT(const char *mp,uint8_t index,uint8_t mindex) {
   char tpowstr[32];
@@ -2361,12 +2363,13 @@ void SML_Immediate_MQTT(const char *mp,uint8_t index,uint8_t mindex) {
           // immediate mqtt
           dtostrfd(meter_vars[index],dp&0xf,tpowstr);
           ResponseTime_P(PSTR(",\"%s\":{\"%s\":%s}}"),meter_desc_p[mindex].prefix,jname,tpowstr);
-          MqttPublishTeleSensor();
+          MqttPublishTeleSensorTopic(PSTR(D_RSLT_ISENSOR));
         }
       }
     }
   }
 }
+
 
 // web + json interface
 void SML_Show(boolean json) {
